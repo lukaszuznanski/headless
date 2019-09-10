@@ -58,6 +58,105 @@ lib.page {
 
             }
         }
+        robots {
+            fields {
+                index = CASE
+                index {
+                    key.field = no_index
+
+                    0 = TEXT
+                    0 {
+                        value = true
+                    }
+                    1 = TEXT
+                    1 {
+                        value = false
+                    }
+                }
+                follow = CASE
+                follow {
+                    key.field = no_follow
+
+                    0 = TEXT
+                    0 {
+                        value = true
+                    }
+                    1 = TEXT
+                    1 {
+                        value = false
+                    }
+                }
+            }
+        }
+        socialMedia {
+            fields {
+                ogTitle = TEXT
+                ogTitle {
+                    field = og_title
+                }
+
+                ogDescription = TEXT
+                ogDescription {
+                    field = og_description
+                }
+
+                ogImage = TEXT
+                ogImage {
+                    field = og_image
+                    dataProcessing {
+                        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+                        10 {
+                            references.fieldName = og_image
+                        }
+                        20 = FriendsOfTYPO3\Headless\DataProcessing\FilesProcessor
+                        20 {
+                            as = images
+                        }
+                    }
+                }
+                twitterTitle = TEXT
+                twitterTitle {
+                    field = twitter_title
+                }
+
+                twitterDescription = TEXT
+                twitterDescription {
+                    field = twitter_description
+                }
+
+                twitterImage = TEXT
+                twitterImage {
+                    field = twitter_image
+                    dataProcessing {
+                        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+                        10 {
+                            references.fieldName = twitter_image
+                        }
+                        20 = FriendsOfTYPO3\Headless\DataProcessing\FilesProcessor
+                        20 {
+                            as = images
+                        }
+                    }
+                }
+            }
+        }
+        resources {
+            fields {
+                files = TEXT
+                files {
+                    dataProcessing {
+                        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+                        10 {
+                            references.fieldName = media
+                        }
+                        20 = FriendsOfTYPO3\Headless\DataProcessing\FilesProcessor
+                        20 {
+                            as = files
+                        }
+                    }
+                }
+            }
+        }
         editorial {
             fields {
                 author = TEXT
