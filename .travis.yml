@@ -8,6 +8,9 @@ php:
 env:
   - TYPO3_VERSION=^9
 
+services:
+  - mysql
+
 addons:
   apt:
     packages:
@@ -23,6 +26,14 @@ script:
     echo;
     echo "PHP lint";
     find . -name \*.php ! -path "./.build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
+  - >
+    echo;
+    export typo3DatabaseName="typo3";
+    export typo3DatabaseHost="localhost";
+    export typo3DatabaseUsername="root";
+    export typo3DatabasePassword="";
+    mkdir -p .Build/var/lock
+    find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
 jobs:
   include:
     - stage: quality

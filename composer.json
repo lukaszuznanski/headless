@@ -30,7 +30,8 @@
     "typo3/cms-core": "^9.5 || ^10.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.15"
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "nimut/testing-framework": "^1.0 || ^2.0 || ^3.0 || ^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -43,6 +44,12 @@
     ],
     "cgl-fix": [
       "php-cs-fixer fix -v --using-cache false"
+    ],
+    "test:php:functional": [
+      "phpunit -c Tests/Build/FunctionalTests.xml --log-junit logs/phpunit_functionals.xml"
+    ],
+    "test": [
+      "@test:php:functional"
     ]
   }
 }
